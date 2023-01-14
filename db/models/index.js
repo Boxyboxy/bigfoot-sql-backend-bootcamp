@@ -1,10 +1,12 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
+"use strict";
+// sets a whole bunch of variable
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
+const process = require("process");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV;
-const config = require('../../config/database')[env];
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../../configs/database.js")[env];
 const db = {};
 
 let sequelize;
@@ -18,7 +20,7 @@ if (config.use_env_variable) {
     config
   );
 }
-
+// uses file system to read the entire models folder and import all the different models created
 fs.readdirSync(__dirname)
   .filter((file) => {
     return (
@@ -41,5 +43,5 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
+// exports a db object that contains all those models
 module.exports = db;
