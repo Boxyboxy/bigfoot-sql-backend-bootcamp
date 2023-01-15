@@ -1,11 +1,14 @@
-const { sighting } = require("../db/models");
+const { sighting, comment } = require("../db/models");
 
 module.exports = {
   getAllSightings(options) {
     return sighting.findAll(options);
   },
   getSightingByReportNumber(reportNumber) {
-    const options = {};
+    const options = {
+      include: { model: comment },
+      order: [[comment, "createdAt", "DESC"]],
+    };
     if (reportNumber) options.where = { reportNumber };
     return sighting.findOne(options);
   },
