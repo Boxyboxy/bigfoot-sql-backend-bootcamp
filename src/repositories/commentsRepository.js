@@ -18,4 +18,15 @@ module.exports = {
       },
     });
   },
+
+  updateComment(commentId, payload) {
+    return comment.update(
+      { ...payload, update_at: new Date() },
+      {
+        where: {
+          id: commentId,
+        },
+      }
+    );
+  },
 };

@@ -10,4 +10,6 @@ commentsRouter.post("/:sightingId", commentsController.createComment);
 // DELETE /comments/:commentId
 commentsRouter.delete("/:commentId", commentsController.deleteComment);
 
+commentsRouter.patch("/:commentId", commentsController.updateComment);
+
 module.exports = commentsRouter;
