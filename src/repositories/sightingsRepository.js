@@ -1,4 +1,4 @@
-const { sighting, comment } = require("../db/models");
+const { sighting, comment, like, Sequelize } = require("../db/models");
 
 module.exports = {
   getAllSightings(options) {
@@ -6,8 +6,14 @@ module.exports = {
   },
   getSightingByReportNumber(reportNumber) {
     const options = {
-      include: { model: comment },
+      include: [{ model: comment }, { model: like }],
       order: [[comment, "createdAt", "DESC"]],
+      // attributes: {
+      //   include: [
+      //     [Sequelize.fn("COUNT", Sequelize.col("likes.id")), "likesCount"],
+      //   ],
+      // },
+      // group: ["like.id"],
     };
     if (reportNumber) options.where = { reportNumber };
     return sighting.findOne(options);
