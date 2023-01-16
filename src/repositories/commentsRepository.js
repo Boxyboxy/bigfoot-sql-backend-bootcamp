@@ -10,4 +10,12 @@ module.exports = {
       updated_at: currentDate,
     });
   },
+
+  deleteComment(commentId) {
+    return comment.destroy({
+      where: {
+        id: commentId,
+      },
+    });
+  },
 };
