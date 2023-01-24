@@ -59,20 +59,12 @@ module.exports = {
   async updateSightingByReportNumber(req, res) {
     const { reportNumber } = req.params;
 
-    const [updatedRows] = await updateSightingByReportNumber(
+    const updatedSighting = await updateSightingByReportNumber(
       reportNumber,
       req.body
     );
 
-    if (!updatedRows) {
-      const error = new Error(
-        `Could not find sighting with report number ${reportNumber}`
-      );
-      error.status = 400;
-      throw error;
-    }
-
-    return res.json({ success: true });
+    return res.json(updatedSighting);
   },
 
   async createSighting(req, res) {
